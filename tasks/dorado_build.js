@@ -13,11 +13,11 @@ module.exports = function (grunt) {
 	grunt.registerMultiTask('dorado_build', 'Dorado Ui Build.', function () {
 		// 内部使用默认选项定义处
 		var options = this.options({
-			punctuation: "\n#上海锐道信息技术有限公司版权所有",
-			separator: "",
+			punctuation: "\n#上海锐道信息技术有限公司版权所有\n",
+			separator: "\n",
 			importBegin: '#IMPORT_BEGIN',
 			importEnd: "#IMPORT_END",
-			license: "#www.dorado.io"
+			license: "\n#www.dorado.io\n"
 		});
 		this.files.forEach(function (f) {
 			var src = f.src.filter(function (filepath) {
@@ -32,7 +32,7 @@ module.exports = function (grunt) {
 				//var reg=/#IMPORT_BEGIN[\w\W\s\S]+?#IMPORT_END/i;
 				var reg = new RegExp(options.importBegin + '[\\w\\W\\s\\S]+?' + options.importEnd, "i");
 
-				fileDate = fileDate.replace(reg, "")
+				fileDate = fileDate.replace(reg, "");
 
 				return fileDate;
 			}).join(grunt.util.normalizelf(options.separator));
