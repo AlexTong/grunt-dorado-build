@@ -30,7 +30,7 @@ module.exports = function (grunt) {
 				var fileDate = grunt.file.read(filepath);
 				var reg = new RegExp(options.importBegin + '[\\w\\W\\s\\S]+?' + options.importEnd, "i");
 
-				fileDate = fileDate.replace(reg, "");
+				fileDate = fileDate.replace(reg, "\n");
 
 				return fileDate;
 			}).join(grunt.util.normalizelf(options.separator));
