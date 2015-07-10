@@ -30,10 +30,10 @@ module.exports = function (grunt) {
 				var fileDate = grunt.file.read(filepath);
 				var reg = new RegExp(options.importBegin + '[\\w\\W\\s\\S]+?' + options.importEnd, "i");
 
-				fileDate = fileDate.replace(reg, "\n");
+				fileDate = fileDate.replace(reg, "");
 
 				return fileDate;
-			}).join(grunt.util.normalizelf(options.separator));
+			}).join(grunt.util.normalizelf(grunt.util.linefeed+options.separator));
 			//编写版权信息和结束语
 			src = options.license + src + options.punctuation;
 			grunt.file.write(f.dest, src);
