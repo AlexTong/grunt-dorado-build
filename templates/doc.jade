@@ -33,6 +33,10 @@ block content
 												code=item.memberOf
 									.item-body
 										.label=item.label
+										if item.enum
+											.ui.labels
+												each enumItem in item.enum
+													.ui.label.mini.horizontal.teal=enumItem || '""'
 										pre.description!=item.description
 				if alias.methods
 					.ui.tab(data-tab="methods" class= alias.attributes ? "" : "active")
