@@ -1,0 +1,9 @@
+name: dorado.DataType
+stereotype: class
+super: dorado.Element
+
+---
+
+name: dorado.PropertyDef
+stereotype: class
+super: dorado.Element

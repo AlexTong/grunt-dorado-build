@@ -1,0 +1,20 @@
+name: dorado.util
+stereotype: namespace
+methods:
+  - name: parentM
+    label: 父类方法
+    arguments:
+      - name: dom
+        type: HTMLElement
+
+      - name: value
+        type: string
+
+      - name: continuous
+        type: boolen
+        description: 是否连续
+
+    return:
+      type: dorado.util
+      description: dorado.util工具类
+
