@@ -140,7 +140,8 @@
   display: block;
   border-width: 0px;
   background-color: #dcdfdd;
-  margin-right: 2.5em;
+  margin-right: 1.5em;
+  padding: 1em;
 }
 .ui.secondary.pointing.menu .active.item {
   border-color: #4ba575;
