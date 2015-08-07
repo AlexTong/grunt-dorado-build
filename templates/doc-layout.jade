@@ -12,15 +12,15 @@ html
 				each item in items
 					- var href="./"+item+".html"
 
-					.item(class= item === title ? "active" : "")
-						a.item(href=href)= item
+					a.item(class= item === title ? "active" : "" href=href)= item
+
 		.ui.inverted.menu.doc-header.box
 			.ui.header.item Dorado UI API
 		.flex-box
 			.row.doc-body
 				.small-0.medium-3.large-2.columns#sidebar
 					.ui.icon.input.fluid.inverted.transparent
-						input(type="text" placeholder="搜索...")
+						input#searchInput(type="text" placeholder="搜索...")
 						i.search.icon
 					+_makeSlideBar(aliasNames)
 

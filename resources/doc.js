@@ -18,6 +18,15 @@ $(".description>code").each(function () {
 	var code = js_beautify(html.toString(), jsBeautifyOptions);
 	//$pre.text(code)
 	$dom.text(code)
-
 });
+$("#searchInput").on("input", function () {
+	var value = this.value.toLowerCase();
+
+	$("#sidebar> .ui.list>a.item").each(function () {
+		var $dom=$(this);
+		var state=$dom.text().toLowerCase().indexOf(value) > -1;
+		$dom.toggleClass("hidden", !state);
+	})
+});
+
 prettyPrint();
