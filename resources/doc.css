@@ -11,6 +11,7 @@
 }
 .doc-body #sidebar {
   height: 100%;
+  overflow: auto;
   background-color: #3E3D49;
 }
 .doc-body #sidebar .ui.input {
