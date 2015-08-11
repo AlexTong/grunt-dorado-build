@@ -28,8 +28,8 @@ block content
 									.item-header
 										strong=item.name
 										.type=item.type || "String"
-										if item.defaultValue !=null
-											span.default-value=":"+item.defaultValue
+										if item.defaultValue != null
+											span.default-value=":" + item.defaultValue
 										em
 											a(href="./" + item.memberOf + ".html")
 												code=item.memberOf
@@ -61,6 +61,7 @@ block content
 														li.param
 															span.name.ui.label.mini.horizontal= param.name
 															span.type= param.type
+															.label!= param.description || param.label
 										.return
 											span.label Returns:
 											span.type=item.type || "void"
@@ -92,7 +93,7 @@ block content
 																ul
 																	each prop in param.properties
 																		li
-																			span.name.ui.label.horizontal=prop.name+":"
+																			span.name.ui.label.horizontal=prop.name + ":"
 																			span.type=prop.type || "Object"
 																			div.desc=prop.description
 										pre.description!=item.description

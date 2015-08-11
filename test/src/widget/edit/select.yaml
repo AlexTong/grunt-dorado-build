@@ -1,0 +1,8 @@
+
+- name: dorado.Select
+  stereotype: class
+  super: dorado.AbstractInput
+  attributes:
+    - name: options
+      type: Array|dorado.EntityList
+      description: 可选项列表

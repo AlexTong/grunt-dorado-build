@@ -1,0 +1,12 @@
+- name: dorado.Link
+  stereotype: class
+  label: dorado 文本标签控件
+  super: dorado.AbstractContainer
+  attributes:
+    - name: href
+      label: 目标地址
+      type: string
+
+    - name: target
+      label: 目标框架
+      type: string

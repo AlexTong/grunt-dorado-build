@@ -30,6 +30,12 @@ module.exports = function (grunt) {
 			doc:["doc"]
 		},
 		copy: {
+			test:{
+				expand: true,
+				cwd: "/Users/alex/Source/dorado8/trunk/dorado-ui/src",
+				src: ["core/**","widget/**"],
+				dest: "test/src"
+			},
 			build: {
 				expand: true,
 				cwd: "lib",

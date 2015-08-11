@@ -95,8 +95,8 @@ module.exports = function (grunt) {
 			});
 		}
 
-		function extendHandler(obj, superObj, name) {
-			var items = _.union(superObj[name], obj[name]);
+		function unionProps(obj, superObj, name) {
+			var items = _.union(obj[name] || [], superObj[name] || []);
 			if (name === "methods") {
 				_.each(items, function (item) {
 					if (!/\)$/.test(item.name)) {
@@ -150,7 +150,28 @@ module.exports = function (grunt) {
 			obj[name] = _.uniq(items, "name");
 		}
 
+
 		var classDocElements = ["methods", "events", "attributes"];
+
+		function classExtendHandler(alias) {
+			if (alias.super) {
+				var superClass = SYMBOLS[alias.super];
+				if (!superClass._ignore) {
+					classExtendHandler(superClass)
+				}
+				_.each(classDocElements, function (name) {
+					unionProps(alias, superClass, name)
+				});
+				_.each(superClass, function (value, key) {
+					if (_.indexOf(classDocElements, key) > -1 && !alias[key]) {
+						alias[key] = value;
+					}
+				});
+			}
+
+			alias._ignore = true
+
+		}
 
 		_.each(this.files, function (filePair) {
 			filePair.src.forEach(function (src) {
@@ -169,30 +190,20 @@ module.exports = function (grunt) {
 		});
 
 		var aliasNames = [];
-		_.each(SYMBOLS, function (alias, name) {
-			_.each(classDocElements, function (name) {
-				memberOf(alias, name);
+		_.each(SYMBOLS, function (alias) {
+			_.each(classDocElements, function (prop) {
+				memberOf(alias, prop);
 			});
+			aliasNames.push(alias.name);
+		});
+		_.each(SYMBOLS, function (alias) {
 			if (alias.stereotype === "class") {
-				if (alias.super) {
-					var superClass = SYMBOLS[alias.super];
-					if (superClass) {
-						_.each(classDocElements, function (name) {
-							extendHandler(alias, superClass, name)
-						});
-						_.each(superClass, function (value, key) {
-							if (_.indexOf(classDocElements, key) > -1 && !alias[key]) {
-								alias[key] = value;
-							}
-						});
-					}
+				if (!alias._ignore) {
+					classExtendHandler(alias)
 				}
 			}
-
-			aliasNames.push(name);
 		});
 		var dest = path.join(process.cwd(), options.output);
-		//grunt.file.write(filePath, JSON.stringify(classMap, null, 4));
 		var tamplate = path.join(__dirname, "..", "templates", "doc.jade");
 
 		_.each(SYMBOLS, function (alias, name) {
@@ -228,7 +239,7 @@ module.exports = function (grunt) {
 				fileDate = fileDate.replace(reg, "");
 
 				return fileDate;
-			}).join(grunt.util.normalizelf(grunt.util.linefeed+options.separator));
+			}).join(grunt.util.normalizelf(grunt.util.linefeed + options.separator));
 			//编写版权信息和结束语
 			src = options.license + src + options.punctuation;
 			grunt.file.write(f.dest, src);

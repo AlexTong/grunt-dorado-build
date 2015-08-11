@@ -1,0 +1,39 @@
+name: dorado.AbstractContainer
+stereotype: class
+label: dorado 抽象Container控件
+description: 此控件为容器类如：Layer,Segment,Link等控件的超类。
+super: dorado.Widget
+attributes:
+  - name: content
+    type: string|HTMLElement|dorado.Widget|object
+    description: |
+      容器内容,可如下模式赋值:
+      <code>
+        此属性支持多态参数：
+        new dorado.Layer({
+          content:"内容"
+        });
+        new dorado.Layer({
+          content:{
+            tagName:"div",
+            content:"内容"
+          }
+        });
+        new dorado.Layer({
+          content:document.createElement("div")
+        });
+        new dorado.Layer({
+          content:{
+            $type:"Button",
+            caption:"按钮"
+          }
+        });
+      </code>
+
+
+methods:
+  - name: getContentContainer
+    label: 取得内容容器
+    return:
+      type: HTMLElement
+

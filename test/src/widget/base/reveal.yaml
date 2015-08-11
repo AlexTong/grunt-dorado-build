@@ -1,0 +1,84 @@
+name: dorado.Reveal
+stereotype: class
+label: dorado 面具控件
+super: dorado.Widget
+attributes:
+  - name: type
+    label: 动画模式
+    type: string
+    enum:
+      - fade
+      - move
+      - rotate
+    defaultValue: fade
+
+  - name: direction
+    label: 动画方向
+    type: string
+    enum:
+      - left
+      - right
+      - top
+      - bottom
+    defaultValue: left
+
+  - name: active
+    label: 活跃态
+    type: boolean
+    defaultValue: false
+
+  - name: instant
+    label: 瞬间的
+    type: boolean
+    defaultValue: false
+
+  - name: disabled
+    label: 禁用状态
+    type: boolean
+    defaultValue: false
+
+  - name: visibleContent
+    label: 默认状态内容
+    type: object||dorado.Widget||string
+    description: |
+          <code>
+          new dorado.Reveal(
+            {
+              visibleContent:{
+                $type:"Button",caption:"按钮"
+              }
+            }
+          )
+          new dorado.Reveal(
+            {
+              visibleContent:{
+                tagName:"div",
+                class:"content"
+              }
+            }
+          )
+          new dorado.Reveal(
+            {
+              visibleContent:new dorado.Button({caption:"按钮"})
+            }
+          )
+          new dorado.Reveal(
+            {
+              visibleContent:$.xCreate({
+                tagName:"span",content:"内容"
+              })
+            }
+          )
+          new dorado.Reveal(
+            {
+              visibleContent:"变脸前内容"
+            }
+          );
+          </code>
+
+  - name: hiddenContent
+    label: 变脸状态内容
+    type: object||dorado.Widget||string
+    description: |
+      请参考visibleContent属性设置
+

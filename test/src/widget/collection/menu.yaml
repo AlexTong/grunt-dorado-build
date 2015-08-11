@@ -1,0 +1,181 @@
+- name: dorado.AbstractMenuItem
+  stereotype: class
+  label: dorado 的抽象MenuItem
+  super: dorado.Widget
+
+- name: dorado.MenuItem
+  stereotype: class
+  label: dorado MenuItem控件
+  super: dorado.AbstractMenuItem
+  attributes:
+    - name: caption
+      label: 标题
+      type: String
+
+    - name: icon
+      label: 图标
+      type: String
+
+    - name: items
+      label: 二级Menu Items
+      type: Array(dorado.menu.MenuItem)
+  events:
+    - name: click
+      label: 当前MenuItem单击后触发此事件
+
+- name: dorado.DropdownMenuItem
+  stereotype: class
+  label: dorado Dropdown Menu Item
+  super: dorado.AbstractMenuItem
+
+- name: dorado.ControlMenuItem
+  stereotype: class
+  label: dorado Menu的可停放控件的Item
+  super: dorado.AbstractMenuItem
+  attributes:
+    - name: control
+      label: 内部控件
+      type: dorado.Widget
+
+- name: dorado.HeaderMenuItem
+  stereotype: class
+  label: dorado Menu的标题 Item
+  super: dorado.AbstractMenuItem
+
+- name: dorado.Menu
+  stereotype: class
+  label: dorado Menu控件
+  super: dorado.Widget
+  attributes:
+    - name: items
+      type: Array
+      description: |
+        此Items将在Menu的从左到右排列。
+        此属性内容可通过以下方式定义。
+        <code>
+        new dorado.Menu(
+        {
+          items: [
+            {
+                caption: "腾讯微博", icon: "qq"
+            },
+            {
+                caption: "微信", icon: "weixin"
+            },
+            {
+                $type: "Input",icon:"sreach" //ControlItem的定义
+            },
+            {
+                caption: "其他…", $type: "dropdown",  //DropDownItem的定义
+                items: [
+                    {
+                        caption: "新浪微博", icon: "sina"
+                    },
+                    {
+                        caption: "人人网", icon: "renren"
+                    },
+                    {
+                        caption: "facebook", icon: "facebook"
+                    }
+                ]
+            }
+          ]
+        }
+        )
+        </code>
+    - name: rightItems
+      type: Array
+      description: |
+        此rightItems全部在菜单的右侧显示。
+        定义格式可参考Items属性
+    - name: centered
+      type: boolean
+      defaultValue: false
+      description: 通过此属性可获得Semantic Menu Container效果。
+  events:
+    - name: itemClick
+      description: 当菜单某一个Item被单击时触发此事件
+      arguments:
+        - name: self
+          label: 事件的发起者,即组件本身
+        - name: arg
+          properties:
+            item:
+              type: dorado.MenuItem
+              description: 被单击的菜单项
+            event:
+              type: Event
+              description: window.event 对象
+  methods:
+    - name: addItem
+      label: 添加Item
+      arguments:
+        - name: config
+          type: object||HTMLElement
+      description: |
+        参考例子代码如下:
+        <code>
+        menu.addItem({
+          $type:"Button",
+          caption:"按钮"
+        })
+        groupWidget.addItem({
+          caption:"首页",
+          icon:"home"
+        })
+        </code>
+
+    - name: clearItems
+      label: 清空Items
+      return:
+        type: dorado.AbstractItemGroup
+        description: 组件本身
+
+    - name: removeItem
+      label: 移除指定Item
+      arguments:
+        - name: item
+          type: number||dorado.MenuItem
+          description: item本身或者序号
+
+    - name: addRightItem
+      label: 添加右侧Item
+      arguments:
+        - name: config
+          type: object||dorado.MenuItem
+      description: |
+        参考例子代码如下:
+        <code>
+        menu.addRightItem({
+          $type:"Button",
+          caption:"按钮"
+        })
+        menu.addRightItem({
+          caption:"首页",
+          icon:"home"
+        })
+        </code>
+      return:
+        type: dorado.AbstractItemGroup
+        description: 组件本身
+    - name: clearRightItems
+      label: 清空右侧Items
+      return:
+        type: dorado.AbstractItemGroup
+        description: 组件本身
+
+    - name: removeRightItem
+      label: 移除右侧指定Item
+      arguments:
+        - name: item
+          type: number||dorado.MenuItem
+          description: item本身或者序号
+
+- name: dorado.TitleBar
+  stereotype: class
+  label: dorado 标题栏控件
+  super: dorado.Menu
+  attributes:
+    - name: title
+      label: 标题
+      type: String
